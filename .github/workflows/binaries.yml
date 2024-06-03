@@ -3,6 +3,7 @@ name: Release Binaries
 on:
   release:
     types: [created]
+  workflow_dispatch:
 
 jobs:
   release-linux-amd64:
@@ -28,6 +29,19 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         goos: linux
         goarch: arm64
+        project_path: cmd/envsubst
+        asset_name: envsubst-Linux-arm64
+        compress_assets: OFF
+  release-linux-s390x:
+    name: release linux/s390x
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: wangyoucao577/go-release-action@v1.35
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        goos: linux
+        goarch: s390x
         project_path: cmd/envsubst
         asset_name: envsubst-Linux-arm64
         compress_assets: OFF
